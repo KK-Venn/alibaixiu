@@ -36,7 +36,7 @@
         <strong>错误！</strong>发生XXX错误
       </div> -->
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4" id="modifyBox">
           <form id="userForm">
             <h2>添加新用户</h2>
             <div class="form-group">
@@ -168,6 +168,49 @@
         </td>
       </tr>
       {{/each}}
+  </script>
+  <script type="text/html" id="modifyTpl">
+    <form id="modifyForm" data-id="{{_id}}">
+        <h2>用户信息修改</h2>
+        <div class="form-group">
+          <label>头像</label>
+          <div class="form-group">
+            <label class="form-image">
+              <input id="avatar" type="file">
+              <img src="{{avatar || '/assets/img/default.png'}}" id="preview">
+              <input type="hidden" name="avatar" id="hiddenAvatar" value="{{avatar}}">
+              <i class="mask fa fa-upload"></i>
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>邮箱</label>
+          <input class="form-control" type="email" placeholder="请输入邮箱" name="email" value="{{email}}">
+        </div>
+        <div class="form-group">
+          <label>昵称</label>
+          <input class="form-control" type="text" placeholder="请输入昵称" name="nickName" value="{{nickName}}">
+        </div>
+        <div class="form-group">
+          <div class="radio-inline">
+            <label><input type="radio" value="0" name="status" {{ status == '0' ? 'checked':''}}>未激活</label>
+          </div>
+          <div class="radio-inline">
+            <label><input type="radio" value="1" name="status" {{ status == '1' ? 'checked':''   }}>激活</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="radio-inline">
+            <label><input type="radio" value="admin" name="role" {{ role == 'admin' ? 'checked':''}}>超级管理员</label>
+          </div>
+          <div class="radio-inline">
+            <label><input type="radio" value="normal" name="role" {{ role == 'normal' ? 'checked':''}}>普通用户</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" type="submit">修改</button>
+        </div>
+      </form>
   </script>
   <script src="/js/user.js"></script>
   <script src="/js/common.js"></script>

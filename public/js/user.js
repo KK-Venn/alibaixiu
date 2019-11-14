@@ -1,4 +1,4 @@
-$('#userForm').on('submit',function(){
+$('#userForm').on('submit', function () {
     var formData = $(this).serialize();
     $.ajax({
         type: "post",
@@ -7,43 +7,58 @@ $('#userForm').on('submit',function(){
         success: function (response) {
             location.reload();
         },
-        error:function(){
+        error: function () {
             alert('用户添加失败');
         },
     });
     return false;
 });
-$('#avatar').on('change',function(){
+$('#modifyBox').on('change', '#avatar', function () {
     var formData = new FormData();
-    formData.append('avatar',this.files[0]);
+    formData.append('avatar', this.files[0]);
     $.ajax({
         type: "post",
         url: "/upload",
         data: formData,
-        processData:false,//告诉请求不要解析属性
-        contentType:false,//告诉请求不要设置请求对象内容格式
+        processData: false, //告诉请求不要解析属性
+        contentType: false, //告诉请求不要设置请求对象内容格式
         success: function (response) {
-            $('#preview').attr('src',response[0].avatar);
+            $('#preview').attr('src', response[0].avatar);
             $('#hiddenAvatar').val(response[0].avatar);
         }
     });
-});
+})
 $.ajax({
     type: "get",
     url: "/users",
     success: function (response) {
-        var html = template('tpl',{data:response});
+        var html = template('tpl', {
+            data: response
+        });
         $('#userbox').html(html);
     }
 });
-$('#userbox').on('click','.edit',function(){
+$('#userbox').on('click', '.edit', function () {
     var id = $(this).attr('data-id');
     $.ajax({
         type: "get",
-        url: `/user/${id}`,
+        url: `/users/${id}`,
         success: function (response) {
-            var html = template('',{});
-
+            var html = template('modifyTpl', response);
+            $('#modifyBox').html(html);
         }
     });
 });
+$('#modifyBox').on('submit', '#modifyForm', function () {
+    var formData = $(this).serialize();
+    var id = $(this).attr('data-id');
+    $.ajax({
+        type: "put",
+        url: `/users/${id}`,
+        data: formData,
+        success: function (response) {
+            location.reload();
+        }
+    });
+    return false;
+})
