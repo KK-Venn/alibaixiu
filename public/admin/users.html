@@ -37,44 +37,45 @@
       </div> -->
       <div class="row">
         <div class="col-md-4">
-          <form>
+          <form id="userForm">
             <h2>添加新用户</h2>
             <div class="form-group">
               <label>头像</label>
               <div class="form-group">
                 <label class="form-image">
                   <input id="avatar" type="file">
-                  <img src="../assets/img/default.png">
+                  <img src="../assets/img/default.png" id="preview">
+                  <input type="hidden" name="avatar" id="hiddenAvatar">
                   <i class="mask fa fa-upload"></i>
                 </label>
               </div>
             </div>
             <div class="form-group">
               <label>邮箱</label>
-              <input class="form-control" type="email" placeholder="请输入邮箱">
+              <input class="form-control" type="email" placeholder="请输入邮箱" name="email">
             </div>
             <div class="form-group">
               <label>昵称</label>
-              <input class="form-control" type="text" placeholder="请输入昵称">
+              <input class="form-control" type="text" placeholder="请输入昵称" name="nickName">
             </div>
             <div class="form-group">
               <label>密码</label>
-              <input class="form-control" type="text" placeholder="请输入密码">
+              <input class="form-control" type="text" placeholder="请输入密码" name="password">
             </div>
             <div class="form-group">
               <div class="radio-inline">
-                <label><input type="radio">未激活</label>
+                <label><input type="radio" value="0" name="status">未激活</label>
               </div>
               <div class="radio-inline">
-                <label><input type="radio">激活</label>
+                <label><input type="radio" value="1" name="status">激活</label>
               </div>
             </div>
             <div class="form-group">
               <div class="radio-inline">
-                <label><input type="radio">超级管理员</label>
+                <label><input type="radio" value="admin" name="role">超级管理员</label>
               </div>
               <div class="radio-inline">
-                <label><input type="radio">普通用户</label>
+                <label><input type="radio" value="normal" name="role">普通用户</label>
               </div>
             </div>
             <div class="form-group">
@@ -99,43 +100,8 @@
                 <th class="text-center" width="100">操作</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td class="text-center"><input type="checkbox"></td>
-                <td class="text-center"><img class="avatar" src="../assets/img/default.png"></td>
-                <td>coder@itcast.cn</td>
-                <td>coder</td>
-                <td>激活</td>
-                <td>普通用户</td>
-                <td class="text-center">
-                  <a href="javascript:;" class="btn btn-default btn-xs">编辑</a>
-                  <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="text-center"><input type="checkbox"></td>
-                <td class="text-center"><img class="avatar" src="../assets/img/default.png"></td>
-                <td>coder@itcast.cn</td>
-                <td>coder</td>
-                <td>激活</td>
-                <td>普通用户</td>
-                <td class="text-center">
-                  <a href="javascript:;" class="btn btn-default btn-xs">编辑</a>
-                  <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="text-center"><input type="checkbox"></td>
-                <td class="text-center"><img class="avatar" src="../assets/img/default.png"></td>
-                <td>coder@itcast.cn</td>
-                <td>coder</td>
-                <td>激活</td>
-                <td>普通用户</td>
-                <td class="text-center">
-                  <a href="javascript:;" class="btn btn-default btn-xs">编辑</a>
-                  <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-                </td>
-              </tr>
+            <tbody id="userbox">
+              
             </tbody>
           </table>
         </div>
@@ -182,6 +148,28 @@
 
   <script src="../assets/vendors/jquery/jquery.js"></script>
   <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
+  <script src="../assets/vendors/art-template/template-web.js"></script>
+  <script type="text/html" id="tpl">
+    {{each data}}
+    <tr>
+        <td class="text-center"><input type="checkbox"></td>
+        <td class="text-center">
+        {{if $value.avatar}}
+          <img class="avatar" src="{{$value.avatar}}">
+        {{/if}}
+        </td>
+        <td>{{$value.email}}</td>
+        <td>{{$value.nickName}}</td>
+        <td>{{ $value.status ? '激活':'未激活'}}</td>
+        <td>{{ $value.role == 'normal' ? '普通用户':'超级管理员'}}</td>
+        <td class="text-center">
+          <a href="javascript:;" class="btn btn-default btn-xs edit" data-id="{{@$value._id}}" >编辑</a>
+          <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
+        </td>
+      </tr>
+      {{/each}}
+  </script>
+  <script src="/js/user.js"></script>
   <script src="/js/common.js"></script>
   <script>NProgress.done()</script>
 </body>
