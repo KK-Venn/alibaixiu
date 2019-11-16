@@ -25,4 +25,18 @@ $('#feature').on('change', function () {
             $("#preview").attr('src', response[0].cover);
         }
     });
+});
+//文章上传
+$('#postAdd').on('submit',function(){
+    var data = $(this).serialize();
+    console.log(data);
+    $.ajax({
+        type: "post",
+        url: "/posts",
+        data: data,
+        success: function (response) {
+            location.href = '/admin/posts.html';
+        }
+    });
+    return false;
 })
