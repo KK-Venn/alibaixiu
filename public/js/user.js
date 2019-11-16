@@ -61,4 +61,17 @@ $('#modifyBox').on('submit', '#modifyForm', function () {
         }
     });
     return false;
-})
+});
+//删除用户
+$('#userbox').on('click', '.delete', function () {
+    if (confirm('您真的要删除此用户吗？')) {
+        var id = $(this).attr('data-id');
+        $.ajax({
+            type: "delete",
+            url: "/users/" + id,
+            success: function (response) {
+                location.reload();
+            }
+        });
+    };
+});
