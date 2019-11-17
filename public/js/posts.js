@@ -59,3 +59,16 @@ $('#filterForm').on('submit', function () {
     });
     return false;
 });
+//文章删除
+$('#postBox').on('click','.delete',function(){
+    if(confirm('确定删除此文章？')){
+        var id = $(this).attr('data-id');
+        $.ajax({
+            type: "delete",
+            url: "/posts/"+id,
+            success: function (response) {
+                location.reload();
+            }
+        });
+    };
+});
