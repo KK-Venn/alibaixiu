@@ -60,15 +60,43 @@ $('#filterForm').on('submit', function () {
     return false;
 });
 //文章删除
-$('#postBox').on('click','.delete',function(){
-    if(confirm('确定删除此文章？')){
+$('#postBox').on('click', '.delete', function () {
+    if (confirm('确定删除此文章？')) {
         var id = $(this).attr('data-id');
         $.ajax({
             type: "delete",
-            url: "/posts/"+id,
+            url: "/posts/" + id,
             success: function (response) {
                 location.reload();
             }
         });
     };
 });
+//评论相关
+var id, userId;
+$('#postBox').on('click', ".postCom", function () {
+    id = $(this).data('id')
+    console.log(id, 678);
+    userId = JSON.parse(localStorage.getItem('user'))._id
+    console.log(userId, 444);
+    $('#exampleModal').modal('show')
+})
+
+/* 点击发布 */
+$('.addCom').on('click', function () {
+    var content = $('#message-text').val()
+    console.log(content, 1111);
+    $.ajax({
+        type: 'post',
+        url: '/comments',
+        data: {
+            author: userId,
+            content: content,
+            post: id
+        },
+        success: function (res) {
+            console.log(res, 543);
+            $('#exampleModal').modal('hide')
+        }
+    })
+})
