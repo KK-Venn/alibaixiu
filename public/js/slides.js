@@ -20,10 +20,36 @@ $('#slidesForm').on('submit', function () {
     $.ajax({
         type: "post",
         url: "/slides",
-        data:data,
+        data: data,
         success: function (response) {
             location.reload();
         },
     });
     return false;
+});
+//轮播图片展示功能
+$.ajax({
+    type: "get",
+    url: "/slides",
+    success: function (response) {
+        var html = template('slideTpl', {
+            data: response
+        });
+        $('#slidesBox').html(html);
+    }
+});
+//删除功能
+$('#slidesBox').on('click', '.delete', function () {
+    if (confirm('确定删除此数据吗？')) {
+        var id = $(this).attr('data-id');
+        $.ajax({
+            type: "delete",
+            url: "/slides/" + id,
+            success: function (response) {
+                location.reload();
+            }
+        });
+    }else{
+        return false;
+    }
 });
