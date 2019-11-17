@@ -21,10 +21,7 @@ $.ajax({
     },
 });
 
-function formateDate(date) {
-    date = new Date(date);
-    return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + (date.getDate());
-};
+
 //分页
 function changePage(page) {
     $.ajax({
