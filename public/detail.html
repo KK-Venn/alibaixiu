@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,6 +8,7 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/vendors/font-awesome/css/font-awesome.css">
 </head>
+
 <body>
   <div class="wrapper">
     <div class="topnav">
@@ -38,7 +40,7 @@
       <div class="widgets">
         <h4>随机推荐</h4>
         <ul class="body random" id="randomBox">
-        
+
         </ul>
       </div>
       <div class="widgets">
@@ -126,28 +128,13 @@
       </div>
     </div>
     <div class="content">
-      <div class="article">
-        <div class="breadcrumb">
-          <dl>
-            <dt>当前位置：</dt>
-            <dd><a href="javascript:;">奇趣事</a></dd>
-            <dd>变废为宝！将手机旧电池变为充电宝的Better RE移动电源</dd>
-          </dl>
-        </div>
-        <h2 class="title">
-          <a href="javascript:;">又现酒窝夹笔盖新技能 城里人是不让人活了！</a>
-        </h2>
-        <div class="meta">
-          <span>DUX主题小秘 发布于 2020-06-29</span>
-          <span>分类: <a href="javascript:;">奇趣事</a></span>
-          <span>阅读: (2421)</span>
-          <span>评论: (143)</span>
-        </div>
+      <div class="article" id="postBox">
+
       </div>
       <div class="panel hots">
         <h3>热门推荐</h3>
         <ul id="recommendBox">
-          
+
         </ul>
       </div>
     </div>
@@ -157,7 +144,27 @@
   </div>
   <script src="/assets/vendors/jquery/jquery.min.js"></script>
   <script src="/assets/vendors/art-template/template-web.js"></script>
+  <script type="text/html" id="postTpl">
+    <div class="breadcrumb">
+        <dl>
+          <dt>当前位置：</dt>
+          <dd><a href="javascript:;">{{category.title}}</a></dd>
+          <dd>{{title}}</dd>
+        </dl>
+      </div>
+      <h2 class="title">
+        <a href="javascript:;">{{title}}</a>
+      </h2>
+      <div class="meta">
+        <span>{{author.nickName}} 发布于 {{createAt.substr(0,10)}}</span>
+        <span>分类: <a href="javascript:;">{{category.title}}</a></span>
+        <span>阅读: ({{meta.views}})</span>
+        <span>评论: ({{meta.comments}})</span>
+      </div>
+  </script>
   <script src="/js/public.js"></script>
   <script src="/js/recommend.js"></script>
+  <script src="/js/detail.js"></script>
 </body>
+
 </html>
