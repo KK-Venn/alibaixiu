@@ -28,3 +28,12 @@ $.ajax({
         })
     }
 });
+//所要最新发布数据
+$.ajax({
+    type: "get",
+    url: "/posts/lasted",
+    success: function (response) {
+        var html = template('lastedTpl',{data:response});
+        $('#lastedBox').html(html);
+    }
+});
