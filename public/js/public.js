@@ -1,9 +1,9 @@
 //索要随机推荐数据
 $.ajax({
-    type: "get",
-    url: "/posts/random",
-    success: function (response) {
-        var randomTpl = `
+  type: "get",
+  url: "/posts/random",
+  success: function (response) {
+    var randomTpl = `
         {{each data}}
         <li>
             <a href="detail.html?id={{$value._id}}">
@@ -16,16 +16,18 @@ $.ajax({
           </li>
         {{/each}}
         `;
-        var html = template.render(randomTpl,{data:response});
-        $('#randomBox').html(html);
-    }
+    var html = template.render(randomTpl, {
+      data: response
+    });
+    $('#randomBox').html(html);
+  }
 });
 //索要最新评论
 $.ajax({
-    type: "get",
-    url: "/comments/lasted",
-    success: function (response) {
-       var commentTpl = `
+  type: "get",
+  url: "/comments/lasted",
+  success: function (response) {
+    var commentTpl = `
        {{each data}}
        <li>
             <a href="javascript:;">
@@ -41,17 +43,19 @@ $.ajax({
             </a>
           </li>
        {{/each}}
-       `; 
-       var html = template.render(commentTpl,{data:response});
-       $('#commentBox').html(html);
-    }
+       `;
+    var html = template.render(commentTpl, {
+      data: response
+    });
+    $('#commentBox').html(html);
+  }
 });
 //索要分类信息
 $.ajax({
-    type: "get",
-    url: "/categories",
-    success: function (response) {
-        var categoryTpl = `
+  type: "get",
+  url: "/categories",
+  success: function (response) {
+    var categoryTpl = `
         {{each data}}
         <li>
         <a href="list.html?categoryId={{$value._id}}">
@@ -60,20 +64,23 @@ $.ajax({
         </li>
         {{/each}}
         `;
-        var html = template.render(categoryTpl,{data:response});
-        $('#navBox').html(html);
-        $('#topNavBox').html(html);
-    }
+    var html = template.render(categoryTpl, {
+      data: response
+    });
+    $('#navBox').html(html);
+    $('#topNavBox').html(html);
+  }
 });
 //搜索功能
-$('.search form').on('submit',function(){
-    var keys = $(this).find('.keys').val();
-    location.href = '/search.html?key='+ keys;
-    return false;
+$('.search form').on('submit', function () {
+  var keys = $(this).find('.keys').val();
+  location.href = '/search.html?key=' + keys;
+  return false;
 });
-function getUrl(){
-    var arr = location.search.substr(1).split('=');
-    var obj = {};
-    obj[arr[0]] = arr[1];
-    return obj;
+
+function getUrl() {
+  var arr = location.search.substr(1).split('=');
+  var obj = {};
+  obj[arr[0]] = arr[1];
+  return obj;
 }
