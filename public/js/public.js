@@ -65,6 +65,12 @@ $.ajax({
         $('#topNavBox').html(html);
     }
 });
+//搜索功能
+$('.search form').on('submit',function(){
+    var keys = $(this).find('.keys').val();
+    location.href = '/search.html?key='+ keys;
+    return false;
+});
 function getUrl(){
     var arr = location.search.substr(1).split('=');
     var obj = {};
