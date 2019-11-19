@@ -46,3 +46,28 @@ $.ajax({
        $('#commentBox').html(html);
     }
 });
+//索要分类信息
+$.ajax({
+    type: "get",
+    url: "/categories",
+    success: function (response) {
+        var categoryTpl = `
+        {{each data}}
+        <li>
+        <a href="list.html?categoryId={{$value._id}}">
+        <i class="fa {{$value.className}}">
+        </i>{{$value.title}}</a>
+        </li>
+        {{/each}}
+        `;
+        var html = template.render(categoryTpl,{data:response});
+        $('#navBox').html(html);
+        $('#topNavBox').html(html);
+    }
+});
+function getUrl(){
+    var arr = location.search.substr(1).split('=');
+    var obj = {};
+    obj[arr[0]] = arr[1];
+    return obj;
+}
